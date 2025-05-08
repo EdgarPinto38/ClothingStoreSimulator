@@ -15,6 +15,10 @@ public class PlayerRaycast : MonoBehaviour
     private Vector2 lastDirection = Vector2.down;
     private bool isMoving = false;
 
+    // Identificación del color actual
+    private enum SkinColor { White, Yellow, Black }
+    private SkinColor currentSkin = SkinColor.White;
+
     void Update()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
@@ -29,24 +33,24 @@ public class PlayerRaycast : MonoBehaviour
                 lastDirection = Vector2.right;
                 headRenderer.flipX = false;
                 bodyRenderer.flipX = false;
-                SetAnimation("Horizontal");
+                SetWalkAnimation();
             }
             else if (moveX < 0)
             {
                 lastDirection = Vector2.left;
                 headRenderer.flipX = true;
                 bodyRenderer.flipX = true;
-                SetAnimation("Horizontal");
+                SetWalkAnimation();
             }
             else if (moveY > 0)
             {
                 lastDirection = Vector2.up;
-                SetAnimation("Up");
+                SetWalkAnimation();
             }
             else if (moveY < 0)
             {
                 lastDirection = Vector2.down;
-                SetAnimation("Down");
+                SetWalkAnimation();
             }
         }
         else
@@ -70,27 +74,158 @@ public class PlayerRaycast : MonoBehaviour
         Debug.DrawRay(transform.position, lastDirection * rayDistance, Color.red);
     }
 
-    void SetAnimation(string direction)
+    void SetWalkAnimation()
     {
-        headAnimator.ResetTrigger("IdleHorizontal");
-        headAnimator.ResetTrigger("IdleUp");
-        headAnimator.ResetTrigger("IdleDown");
+        ResetTriggers();
 
-        bodyAnimator.ResetTrigger("IdleHorizontal");
-        bodyAnimator.ResetTrigger("IdleUp");
-        bodyAnimator.ResetTrigger("IdleDown");
+        switch (currentSkin)
+        {
+            case SkinColor.White:
+                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
+                {
+                    headAnimator.SetTrigger("WalkRight_White");
+                    bodyAnimator.SetTrigger("WalkRight_White");
+                }
+                else if (lastDirection == Vector2.up)
+                {
+                    headAnimator.SetTrigger("WalkUp_White");
+                    bodyAnimator.SetTrigger("WalkUp_White");
+                }
+                else
+                {
+                    headAnimator.SetTrigger("WalkDown_White");
+                    bodyAnimator.SetTrigger("WalkDown_White");
+                }
+                break;
 
-        headAnimator.SetTrigger($"Head{direction}");
-        bodyAnimator.SetTrigger($"Body{direction}");
+            case SkinColor.Yellow:
+                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
+                {
+                    headAnimator.SetTrigger("WalkRight_Yellow");
+                    bodyAnimator.SetTrigger("WalkRight_Yellow");
+                }
+                else if (lastDirection == Vector2.up)
+                {
+                    headAnimator.SetTrigger("WalkUp_Yellow");
+                    bodyAnimator.SetTrigger("WalkUp_Yellow");
+                }
+                else
+                {
+                    headAnimator.SetTrigger("WalkDown_Yellow");
+                    bodyAnimator.SetTrigger("WalkDown_Yellow");
+                }
+                break;
+
+            case SkinColor.Black:
+                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
+                {
+                    headAnimator.SetTrigger("WalkRight_Black");
+                    bodyAnimator.SetTrigger("WalkRight_Black");
+                }
+                else if (lastDirection == Vector2.up)
+                {
+                    headAnimator.SetTrigger("WalkUp_Black");
+                    bodyAnimator.SetTrigger("WalkUp_Black");
+                }
+                else
+                {
+                    headAnimator.SetTrigger("WalkDown_Black");
+                    bodyAnimator.SetTrigger("WalkDown_Black");
+                }
+                break;
+        }
     }
 
     void PlayIdleAnimation()
     {
-        string idleTrigger = lastDirection == Vector2.right || lastDirection == Vector2.left ? "IdleHorizontal"
-                         : lastDirection == Vector2.up ? "IdleUp"
-                         : "IdleDown";
+        ResetTriggers();
 
-        headAnimator.SetTrigger(idleTrigger);
-        bodyAnimator.SetTrigger(idleTrigger);
+        switch (currentSkin)
+        {
+            case SkinColor.White:
+                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
+                {
+                    headAnimator.SetTrigger("IdleRight_White");
+                    bodyAnimator.SetTrigger("IdleRight_White");
+                }
+                else if (lastDirection == Vector2.up)
+                {
+                    headAnimator.SetTrigger("IdleUp_White");
+                    bodyAnimator.SetTrigger("IdleUp_White");
+                }
+                else
+                {
+                    headAnimator.SetTrigger("IdleDown_White");
+                    bodyAnimator.SetTrigger("IdleDown_White");
+                }
+                break;
+
+            case SkinColor.Yellow:
+                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
+                {
+                    headAnimator.SetTrigger("IdleRight_Yellow");
+                    bodyAnimator.SetTrigger("IdleRight_Yellow");
+                }
+                else if (lastDirection == Vector2.up)
+                {
+                    headAnimator.SetTrigger("IdleUp_Yellow");
+                    bodyAnimator.SetTrigger("IdleUp_Yellow");
+                }
+                else
+                {
+                    headAnimator.SetTrigger("IdleDown_Yellow");
+                    bodyAnimator.SetTrigger("IdleDown_Yellow");
+                }
+                break;
+
+            case SkinColor.Black:
+                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
+                {
+                    headAnimator.SetTrigger("IdleRight_Black");
+                    bodyAnimator.SetTrigger("IdleRight_Black");
+                }
+                else if (lastDirection == Vector2.up)
+                {
+                    headAnimator.SetTrigger("IdleUp_Black");
+                    bodyAnimator.SetTrigger("IdleUp_Black");
+                }
+                else
+                {
+                    headAnimator.SetTrigger("IdleDown_Black");
+                    bodyAnimator.SetTrigger("IdleDown_Black");
+                }
+                break;
+        }
+    }
+
+    void ResetTriggers()
+    {
+        string[] colors = { "White", "Yellow", "Black" };
+        string[] states = { "WalkRight", "WalkUp", "WalkDown", "IdleRight", "IdleUp", "IdleDown" };
+
+        foreach (string color in colors)
+        {
+            foreach (string state in states)
+            {
+                headAnimator.ResetTrigger($"{state}_{color}");
+                bodyAnimator.ResetTrigger($"{state}_{color}");
+            }
+        }
+    }
+
+    public void ChangeSkin(int skinIndex)
+    {
+        switch (skinIndex)
+        {
+            case 0:
+                currentSkin = SkinColor.White;
+                break;
+            case 1:
+                currentSkin = SkinColor.Yellow;
+                break;
+            case 2:
+                currentSkin = SkinColor.Black;
+                break;
+        }
     }
 }

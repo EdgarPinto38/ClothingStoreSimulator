@@ -204,9 +204,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 128
+        y: 129
         width: 18
-        height: 18
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,9 +225,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 90
-        y: 128
+        y: 129
         width: 18
-        height: 18
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,9 +246,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 108
-        y: 128
+        y: 129
         width: 18
-        height: 18
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -267,9 +267,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 126
-        y: 128
+        y: 129
         width: 18
-        height: 18
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,9 +288,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 144
-        y: 128
+        y: 129
         width: 18
-        height: 18
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -309,9 +309,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 162
-        y: 128
+        y: 129
         width: 18
-        height: 18
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -326,13 +326,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_10
+      name: cn1
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
+        y: 114
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -347,13 +347,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_11
+      name: cn2
       rect:
         serializedVersion: 2
         x: 18
-        y: 96
+        y: 114
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -368,13 +368,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_12
+      name: cn3
       rect:
         serializedVersion: 2
         x: 36
-        y: 96
+        y: 114
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -389,13 +389,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_13
+      name: cn4
       rect:
         serializedVersion: 2
         x: 54
-        y: 96
+        y: 114
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -410,13 +410,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_14
+      name: cn5
       rect:
         serializedVersion: 2
         x: 72
-        y: 96
+        y: 114
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -431,13 +431,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_15
+      name: tn6
       rect:
         serializedVersion: 2
-        x: 90
-        y: 96
+        x: 126
+        y: 97
         width: 18
-        height: 32
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -452,13 +452,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_16
+      name: tn7
       rect:
         serializedVersion: 2
-        x: 108
-        y: 96
+        x: 144
+        y: 97
         width: 18
-        height: 32
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -473,13 +473,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_17
+      name: cn6
       rect:
         serializedVersion: 2
         x: 126
-        y: 96
+        y: 114
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -494,13 +494,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_18
+      name: cn7
       rect:
         serializedVersion: 2
         x: 144
-        y: 96
+        y: 114
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -515,13 +515,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_19
+      name: cn8
       rect:
         serializedVersion: 2
         x: 162
-        y: 96
+        y: 114
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -536,13 +536,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_20
+      name: ca1
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
+        y: 82
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -557,13 +557,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_21
+      name: ta1
       rect:
         serializedVersion: 2
-        x: 18
-        y: 64
+        x: 0
+        y: 65
         width: 18
-        height: 32
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -578,13 +578,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_22
+      name: ca2
       rect:
         serializedVersion: 2
-        x: 36
-        y: 64
+        x: 18
+        y: 82
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -599,13 +599,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_23
+      name: ta2
       rect:
         serializedVersion: 2
-        x: 54
-        y: 64
+        x: 18
+        y: 65
         width: 18
-        height: 32
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -620,13 +620,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_24
+      name: ca3
       rect:
         serializedVersion: 2
-        x: 72
-        y: 64
+        x: 36
+        y: 82
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -641,13 +641,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_25
+      name: ca4
       rect:
         serializedVersion: 2
-        x: 90
-        y: 64
+        x: 54
+        y: 82
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -662,13 +662,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_26
+      name: ca5
       rect:
         serializedVersion: 2
-        x: 108
-        y: 64
+        x: 72
+        y: 82
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -683,13 +683,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_27
+      name: ca6
       rect:
         serializedVersion: 2
         x: 126
-        y: 64
+        y: 82
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -704,13 +704,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_28
+      name: ta6
       rect:
         serializedVersion: 2
-        x: 144
-        y: 64
+        x: 126
+        y: 65
         width: 18
-        height: 32
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -725,13 +725,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BodySprites_29
+      name: ca7
       rect:
         serializedVersion: 2
-        x: 162
-        y: 64
+        x: 144
+        y: 82
         width: 18
-        height: 32
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -955,6 +955,258 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: tn1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 97
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4334b07094155964a8b2c9f916368bb3
+      internalID: -287104570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tn2
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 97
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ac116daa147dae4590ec3ea01aa04f3
+      internalID: -1370442318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tn3
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 97
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62093517db5c7e445be639b0447740b9
+      internalID: 1046248286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tn4
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 97
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed2ef92a8260ec44db38a6554a4f0996
+      internalID: 1555185419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tn5
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 97
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f865dc6d8054bea4b8fbc8c71c53b4f3
+      internalID: 1524582837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tn8
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 97
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cec84cad4edb7c4b82c3dae4cfa4e1d
+      internalID: -1071578701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ta3
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 65
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b01f7a2e9d3b2fc45b41a2fca0574793
+      internalID: 782393573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ta4
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 65
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0637dc52e8d9e9b4bb7b1070e9242c91
+      internalID: -1827202473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ta5
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 65
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56dca4870a89fd74e8ea862702814121
+      internalID: 1857638535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ta7
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 65
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 425bcbbe7bae1e24fa14cd9a97e48b46
+      internalID: 433571441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ca8
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 82
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62b7fcd6c82fb504c8a95e8a0809841a
+      internalID: -1595714946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ta8
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 65
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5d08e7a5443d5c4ca825c2dec3f08f7
+      internalID: 138520149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -966,46 +1218,58 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      cb1: -124285853
       tb2: -1043397724
-      tb5: -29690606
-      cb10: -1010022222
-      BodySprites_19: -1348128822
-      BodySprites_14: -1778652033
-      BodySprites_29: -1757099989
+      ta1: 1256162852
+      ca6: -1247883619
+      cn2: 1980583488
       tb4: 396997356
-      cb5: 662592751
+      ca1: 145996242
+      ta6: -1914466122
       tb9: -184785555
       cb2: 1358183450
-      BodySprites_28: -1914466122
+      ca7: -1757099989
       tb3: 1494951220
-      BodySprites_11: 1980583488
-      BodySprites_10: -758024215
-      BodySprites_13: -1638430795
-      BodySprites_24: 294915091
-      BodySprites_25: -368049134
-      BodySprites_26: 1678746799
-      BodySprites_12: 1492609642
+      tn2: -1370442318
+      cn7: 1408824451
       cb9: -236672233
-      cb4: 962084624
       cb3: 2125603333
-      BodySprites_21: 1256162852
       tb7: 1730824048
-      BodySprites_16: 1123218091
-      BodySprites_18: 1408824451
-      BodySprites_23: 2039587762
-      cb8: 2140470470
-      BodySprites_22: -742969950
-      cb7: 904566618
-      BodySprites_27: -1247883619
-      tb6: 766611034
-      BodySprites_17: 197887626
+      tn4: 1555185419
+      tn1: -287104570
+      ca3: 294915091
+      ta2: 2039587762
+      cn3: 1492609642
       cb6: 1080607123
-      BodySprites_15: 471735535
-      BodySprites_20: 145996242
       tb10: 1396120880
-      tb1: 1953874658
+      cn4: -1638430795
       tb8: -968453889
+      cb1: -124285853
+      tn5: 1524582837
+      tb5: -29690606
+      tn6: 471735535
+      cb10: -1010022222
+      tn7: 1123218091
+      cn8: -1348128822
+      ca8: -1595714946
+      ta4: -1827202473
+      cb5: 662592751
+      cn6: 197887626
+      ca5: 1678746799
+      ca4: -368049134
+      tn3: 1046248286
+      cn5: -1778652033
+      cb4: 962084624
+      cb8: 2140470470
+      cn1: -758024215
+      tn8: -1071578701
+      ta7: 433571441
+      ta8: 138520149
+      cb7: 904566618
+      tb6: 766611034
+      ta5: 1857638535
+      ca2: -742969950
+      tb1: 1953874658
+      ta3: 782393573
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
