@@ -1,12 +1,7 @@
 using UnityEngine;
-using TMPro;
 
 public class PlayerRaycast : MonoBehaviour
 {
-    public float rayDistance = 2f;
-    public LayerMask interactableLayer;
-    public TextMeshProUGUI objectNameText;
-
     public SpriteRenderer headRenderer;
     public SpriteRenderer bodyRenderer;
     public Animator headAnimator;
@@ -15,12 +10,16 @@ public class PlayerRaycast : MonoBehaviour
     private Vector2 lastDirection = Vector2.down;
     private bool isMoving = false;
 
-    // Identificación del color actual
     private enum SkinColor { White, Yellow, Black }
-    private SkinColor currentSkin = SkinColor.White;
+    private SkinColor currentHeadSkin = SkinColor.White;
+    private SkinColor currentBodySkin = SkinColor.White;
+
+   // public bool canMove = true; // Variable que bloquea el movimiento
 
     void Update()
     {
+        //if (!canMove) return; // Bloquea el movimiento cuando la tienda está abierta
+
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
@@ -58,143 +57,53 @@ public class PlayerRaycast : MonoBehaviour
             isMoving = false;
             PlayIdleAnimation();
         }
-
-        // Disparar Raycast
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, lastDirection, rayDistance, interactableLayer);
-        if (hit.collider != null)
-        {
-            objectNameText.text = hit.collider.gameObject.name;
-            objectNameText.color = Color.yellow;
-        }
-        else
-        {
-            objectNameText.text = "";
-        }
-
-        Debug.DrawRay(transform.position, lastDirection * rayDistance, Color.red);
     }
 
     void SetWalkAnimation()
     {
         ResetTriggers();
-
-        switch (currentSkin)
-        {
-            case SkinColor.White:
-                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
-                {
-                    headAnimator.SetTrigger("WalkRight_White");
-                    bodyAnimator.SetTrigger("WalkRight_White");
-                }
-                else if (lastDirection == Vector2.up)
-                {
-                    headAnimator.SetTrigger("WalkUp_White");
-                    bodyAnimator.SetTrigger("WalkUp_White");
-                }
-                else
-                {
-                    headAnimator.SetTrigger("WalkDown_White");
-                    bodyAnimator.SetTrigger("WalkDown_White");
-                }
-                break;
-
-            case SkinColor.Yellow:
-                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
-                {
-                    headAnimator.SetTrigger("WalkRight_Yellow");
-                    bodyAnimator.SetTrigger("WalkRight_Yellow");
-                }
-                else if (lastDirection == Vector2.up)
-                {
-                    headAnimator.SetTrigger("WalkUp_Yellow");
-                    bodyAnimator.SetTrigger("WalkUp_Yellow");
-                }
-                else
-                {
-                    headAnimator.SetTrigger("WalkDown_Yellow");
-                    bodyAnimator.SetTrigger("WalkDown_Yellow");
-                }
-                break;
-
-            case SkinColor.Black:
-                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
-                {
-                    headAnimator.SetTrigger("WalkRight_Black");
-                    bodyAnimator.SetTrigger("WalkRight_Black");
-                }
-                else if (lastDirection == Vector2.up)
-                {
-                    headAnimator.SetTrigger("WalkUp_Black");
-                    bodyAnimator.SetTrigger("WalkUp_Black");
-                }
-                else
-                {
-                    headAnimator.SetTrigger("WalkDown_Black");
-                    bodyAnimator.SetTrigger("WalkDown_Black");
-                }
-                break;
-        }
+        ActivateHeadTrigger("WalkRight", "WalkUp", "WalkDown");
+        ActivateBodyTrigger("WalkRight", "WalkUp", "WalkDown");
     }
 
     void PlayIdleAnimation()
     {
         ResetTriggers();
+        ActivateHeadTrigger("IdleRight", "IdleUp", "IdleDown");
+        ActivateBodyTrigger("IdleRight", "IdleUp", "IdleDown");
+    }
 
-        switch (currentSkin)
+    void ActivateHeadTrigger(string rightTrigger, string upTrigger, string downTrigger)
+    {
+        string headState = GetStateTrigger(rightTrigger, upTrigger, downTrigger, currentHeadSkin);
+        if (!string.IsNullOrEmpty(headState))
         {
-            case SkinColor.White:
-                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
-                {
-                    headAnimator.SetTrigger("IdleRight_White");
-                    bodyAnimator.SetTrigger("IdleRight_White");
-                }
-                else if (lastDirection == Vector2.up)
-                {
-                    headAnimator.SetTrigger("IdleUp_White");
-                    bodyAnimator.SetTrigger("IdleUp_White");
-                }
-                else
-                {
-                    headAnimator.SetTrigger("IdleDown_White");
-                    bodyAnimator.SetTrigger("IdleDown_White");
-                }
-                break;
+            headAnimator.SetTrigger(headState);
+        }
+    }
 
-            case SkinColor.Yellow:
-                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
-                {
-                    headAnimator.SetTrigger("IdleRight_Yellow");
-                    bodyAnimator.SetTrigger("IdleRight_Yellow");
-                }
-                else if (lastDirection == Vector2.up)
-                {
-                    headAnimator.SetTrigger("IdleUp_Yellow");
-                    bodyAnimator.SetTrigger("IdleUp_Yellow");
-                }
-                else
-                {
-                    headAnimator.SetTrigger("IdleDown_Yellow");
-                    bodyAnimator.SetTrigger("IdleDown_Yellow");
-                }
-                break;
+    void ActivateBodyTrigger(string rightTrigger, string upTrigger, string downTrigger)
+    {
+        string bodyState = GetStateTrigger(rightTrigger, upTrigger, downTrigger, currentBodySkin);
+        if (!string.IsNullOrEmpty(bodyState))
+        {
+            bodyAnimator.SetTrigger(bodyState);
+        }
+    }
 
-            case SkinColor.Black:
-                if (lastDirection == Vector2.right || lastDirection == Vector2.left)
-                {
-                    headAnimator.SetTrigger("IdleRight_Black");
-                    bodyAnimator.SetTrigger("IdleRight_Black");
-                }
-                else if (lastDirection == Vector2.up)
-                {
-                    headAnimator.SetTrigger("IdleUp_Black");
-                    bodyAnimator.SetTrigger("IdleUp_Black");
-                }
-                else
-                {
-                    headAnimator.SetTrigger("IdleDown_Black");
-                    bodyAnimator.SetTrigger("IdleDown_Black");
-                }
-                break;
+    string GetStateTrigger(string rightTrigger, string upTrigger, string downTrigger, SkinColor skin)
+    {
+        if (lastDirection == Vector2.right || lastDirection == Vector2.left)
+        {
+            return $"{rightTrigger}_{skin}";
+        }
+        else if (lastDirection == Vector2.up)
+        {
+            return $"{upTrigger}_{skin}";
+        }
+        else
+        {
+            return $"{downTrigger}_{skin}";
         }
     }
 
@@ -213,19 +122,24 @@ public class PlayerRaycast : MonoBehaviour
         }
     }
 
-    public void ChangeSkin(int skinIndex)
+    public void ChangeHeadSkin(int skinIndex)
     {
-        switch (skinIndex)
-        {
-            case 0:
-                currentSkin = SkinColor.White;
-                break;
-            case 1:
-                currentSkin = SkinColor.Yellow;
-                break;
-            case 2:
-                currentSkin = SkinColor.Black;
-                break;
-        }
+        currentHeadSkin = (SkinColor)skinIndex;
     }
+
+    public void ChangeBodySkin(int skinIndex)
+    {
+        currentBodySkin = (SkinColor)skinIndex;
+    }
+
+    public Vector2 GetLastDirection()
+    {
+        return lastDirection;
+    }
+
+    /*public void SetCanMove(bool state)
+    {
+        Debug.Log($"Movimiento habilitado: {state}");
+        canMove = state;
+    }*/
 }
