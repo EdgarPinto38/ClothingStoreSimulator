@@ -221,48 +221,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tb6
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 129
-        width: 18
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f220cc7480586d04ab5545c2b0a11ddb
-      internalID: 766611034
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tb7
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 129
-        width: 18
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c58b9e938ab468745a1815dcda1174d6
-      internalID: 1730824048
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: tb8
       rect:
         serializedVersion: 2
@@ -414,9 +372,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 114
+        y: 113
         width: 18
-        height: 11
+        height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -666,9 +624,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 82
+        y: 81
         width: 18
-        height: 11
+        height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -834,9 +792,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 146
+        y: 145
         width: 18
-        height: 11
+        height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -846,48 +804,6 @@ TextureImporter:
       bones: []
       spriteID: a27387c2433281d429536da23f5911e3
       internalID: 662592751
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cb6
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 146
-        width: 18
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d5e209003448ad549ba80a9ac11b4614
-      internalID: 1080607123
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cb7
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 146
-        width: 18
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fe77f30aeaf7c4f4c908eb7dbe9f95c9
-      internalID: 904566618
       vertices: []
       indices: 
       edges: []
@@ -1249,14 +1165,14 @@ TextureImporter:
       tn6: 471735535
       cb10: -1010022222
       tn7: 1123218091
-      cn8: -1348128822
-      ca8: -1595714946
       ta4: -1827202473
+      cn8: -1348128822
       cb5: 662592751
       cn6: 197887626
       ca5: 1678746799
       ca4: -368049134
       tn3: 1046248286
+      ca8: -1595714946
       cn5: -1778652033
       cb4: 962084624
       cb8: 2140470470

@@ -10,16 +10,12 @@ public class PlayerRaycast : MonoBehaviour
     private Vector2 lastDirection = Vector2.down;
     private bool isMoving = false;
 
-    private enum SkinColor { White, Yellow, Black }
+    private enum SkinColor { White, Yellow, Black, Azul, Rojo, Rosa, Verde }
     private SkinColor currentHeadSkin = SkinColor.White;
     private SkinColor currentBodySkin = SkinColor.White;
 
-   // public bool canMove = true; // Variable que bloquea el movimiento
-
     void Update()
     {
-        //if (!canMove) return; // Bloquea el movimiento cuando la tienda está abierta
-
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
@@ -109,7 +105,7 @@ public class PlayerRaycast : MonoBehaviour
 
     void ResetTriggers()
     {
-        string[] colors = { "White", "Yellow", "Black" };
+        string[] colors = { "White", "Yellow", "Black", "Azul", "Rojo", "Rosa", "Verde" };
         string[] states = { "WalkRight", "WalkUp", "WalkDown", "IdleRight", "IdleUp", "IdleDown" };
 
         foreach (string color in colors)
@@ -137,9 +133,4 @@ public class PlayerRaycast : MonoBehaviour
         return lastDirection;
     }
 
-    /*public void SetCanMove(bool state)
-    {
-        Debug.Log($"Movimiento habilitado: {state}");
-        canMove = state;
-    }*/
 }
