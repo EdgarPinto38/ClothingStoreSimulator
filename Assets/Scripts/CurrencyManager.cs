@@ -1,13 +1,20 @@
-﻿using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using System;
 
 public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager Instance;
 
-    public int coins = 0;
-    public TextMeshProUGUI coinText;
+    [Header("Configuración de monedas")]
+    public int coins = 100; // Este valor se respeta desde el Inspector
+    public int maxCoins = 9999;
+
+    [Header("Configuración inicial opcional")]
+    [Tooltip("Valor por defecto si no se ha configurado manualmente en el Inspector")]
+    public int defaultStartingCoins = 100;
+
+    // Evento para notificar cambios en las monedas
+    public event Action<int> OnCoinsChanged;
 
     private void Awake()
     {
@@ -15,6 +22,12 @@ public class CurrencyManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // Opcional: Si coins es 0, usa el valor por defecto
+            if (coins == 0 && defaultStartingCoins > 0)
+            {
+                coins = defaultStartingCoins;
+            }
         }
         else
         {
@@ -22,22 +35,27 @@ public class CurrencyManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        NotifyCoinsChanged();
+    }
+
     public void AddCoins(int amount)
     {
         if (amount <= 0) return;
-        coins += amount;
-        UpdateCoinDisplay();
-        Debug.Log($"🟡 Ganaste {amount} monedas. Total: {coins}");
+
+        coins = Mathf.Min(coins + amount, maxCoins);
+        NotifyCoinsChanged();
     }
 
     public bool SpendCoins(int amount)
     {
         if (amount <= 0) return true;
+
         if (coins >= amount)
         {
             coins -= amount;
-            UpdateCoinDisplay();
-            Debug.Log($"🔵 Gastaste {amount} monedas. Restante: {coins}");
+            NotifyCoinsChanged();
             return true;
         }
         else
@@ -47,15 +65,17 @@ public class CurrencyManager : MonoBehaviour
         }
     }
 
-    private void UpdateCoinDisplay()
+    // Notifica a todos los oyentes sobre el cambio en las monedas
+    private void NotifyCoinsChanged()
     {
-        if (coinText != null)
-        {
-            coinText.text = "Monedas: " + coins.ToString();
-        }
-        else
-        {
-            Debug.LogWarning("⚠️ El campo 'coinText' no está asignado.");
-        }
+        OnCoinsChanged?.Invoke(coins);
+    }
+
+    // Método para resetear las monedas (útil para pruebas o nueva partida)
+    public void ResetCoins(int amount = 100)
+    {
+        coins = amount;
+        NotifyCoinsChanged();
+        Debug.Log($"🔄 Monedas reseteadas a: {coins}");
     }
 }

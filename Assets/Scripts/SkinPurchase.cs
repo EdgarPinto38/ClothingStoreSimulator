@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using System.Collections.Generic;
 
 public class SkinPurchase : MonoBehaviour
@@ -8,18 +9,37 @@ public class SkinPurchase : MonoBehaviour
     public bool isPurchased = false;
     public string skinName;
     public Sprite skinImage;
+    public int price = 100; // Precio predeterminado
+    public TextMeshProUGUI priceText; // Texto que muestra el precio
 
     public static List<SkinData> purchasedSkins = new List<SkinData>();
 
     void Start()
     {
         CheckIfPurchased();
+        UpdatePriceDisplay();
     }
 
     void OnEnable()
     {
         // Asegurarse de que el estado del botón sea correcto al activarse
         CheckIfPurchased();
+        UpdatePriceDisplay();
+    }
+
+    public void UpdatePriceDisplay()
+    {
+        if (priceText != null)
+        {
+            if (isPurchased)
+            {
+                priceText.text = "COMPRADO";
+            }
+            else
+            {
+                priceText.text = price.ToString() + " 🪙";
+            }
+        }
     }
 
     public void PurchaseSkin()
@@ -31,37 +51,47 @@ public class SkinPurchase : MonoBehaviour
 
             if (!isHeadOwned && !isBodyOwned)
             {
-                Debug.Log($"💰 Comprando skin: {skinName}");
-                isPurchased = true;
-                purchasedSkins.Add(new SkinData(skinName, skinImage));
-                purchaseButton.interactable = false;
-
-                PlayerRaycast player = FindObjectOfType<PlayerRaycast>();
-                if (player != null)
+                // Verificar si tiene suficientes monedas
+                if (CurrencyManager.Instance != null && CurrencyManager.Instance.SpendCoins(price))
                 {
-                    int skinIndex = GetSkinIndex(skinName);
-                    if (skinIndex >= 0)
+                    Debug.Log($"💰 Comprando skin: {skinName} por {price} monedas");
+                    isPurchased = true;
+                    purchasedSkins.Add(new SkinData(skinName, skinImage, price));
+                    purchaseButton.interactable = false;
+                    UpdatePriceDisplay();
+
+                    PlayerRaycast player = FindObjectOfType<PlayerRaycast>();
+                    if (player != null)
                     {
-                        if (skinName.ToLower().Contains("cabeza"))
+                        int skinIndex = GetSkinIndex(skinName);
+                        if (skinIndex >= 0)
                         {
-                            player.ChangeHeadSkin(skinIndex);
-                        }
-                        else if (skinName.ToLower().Contains("cuerpo") ||
-                                 skinName.ToLower() == "azul" ||
-                                 skinName.ToLower() == "rojo" ||
-                                 skinName.ToLower() == "rosa" ||
-                                 skinName.ToLower() == "verde")
-                        {
-                            player.ChangeBodySkin(skinIndex);
+                            if (skinName.ToLower().Contains("cabeza"))
+                            {
+                                player.ChangeHeadSkin(skinIndex);
+                            }
+                            else if (skinName.ToLower().Contains("cuerpo") ||
+                                     skinName.ToLower() == "azul" ||
+                                     skinName.ToLower() == "rojo" ||
+                                     skinName.ToLower() == "rosa" ||
+                                     skinName.ToLower() == "verde")
+                            {
+                                player.ChangeBodySkin(skinIndex);
+                            }
                         }
                     }
-                }
 
-                // Actualizar el inventario si está abierto
-                InventoryManager inventory = FindObjectOfType<InventoryManager>();
-                if (inventory != null)
+                    // Actualizar el inventario si está abierto
+                    InventoryManager inventory = FindObjectOfType<InventoryManager>();
+                    if (inventory != null)
+                    {
+                        inventory.ForceRefreshInventory();
+                    }
+                }
+                else
                 {
-                    inventory.ForceRefreshInventory();
+                    // Mostrar mensaje de error - no hay suficientes monedas
+                    Debug.Log($"❌ No tienes suficientes monedas para comprar {skinName}. Necesitas: {price}");
                 }
             }
         }
@@ -76,6 +106,8 @@ public class SkinPurchase : MonoBehaviour
         {
             purchaseButton.interactable = !isSkinOwned;
         }
+
+        UpdatePriceDisplay();
     }
 
     public bool IsHeadSkinOwned(string skinName)
@@ -105,13 +137,8 @@ public class SkinPurchase : MonoBehaviour
             purchaseButton.interactable = true;
         }
 
+        UpdatePriceDisplay();
         Debug.Log($"🔁 Botón reactivado: {skinName}");
-    }
-
-    public void ForceUpdateButton()
-    {
-        CheckIfPurchased();
-        Debug.Log($"🔄 Botón actualizado: {skinName}");
     }
 
     public int GetSkinIndex(string skinName)
@@ -142,11 +169,20 @@ public class SkinPurchase : MonoBehaviour
     {
         public string name;
         public Sprite image;
+        public int price;
 
         public SkinData(string name, Sprite image)
         {
             this.name = name;
             this.image = image;
+            this.price = 50; // Precio predeterminado
+        }
+
+        public SkinData(string name, Sprite image, int price)
+        {
+            this.name = name;
+            this.image = image;
+            this.price = price;
         }
     }
 }

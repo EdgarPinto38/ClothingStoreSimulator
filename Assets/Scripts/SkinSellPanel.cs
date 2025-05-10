@@ -8,6 +8,11 @@ public class SkinSellPanel : MonoBehaviour
     public Transform itemsContainer;
     public GameObject itemPrefab;
 
+    [Header("Configuración de venta")]
+    [Tooltip("Porcentaje del precio original que se recupera al vender (0.5 = 50%)")]
+    [Range(0.1f, 1.0f)]
+    public float sellValueMultiplier = 0.5f;
+
     public void OpenSellPanel()
     {
         gameObject.SetActive(true);
@@ -40,12 +45,22 @@ public class SkinSellPanel : MonoBehaviour
             {
                 GameObject newItem = Instantiate(itemPrefab, itemsContainer);
 
-                TextMeshProUGUI textComponent = newItem.GetComponentInChildren<TextMeshProUGUI>();
+                // Configurar nombre y sprite
+                TextMeshProUGUI nameText = newItem.transform.Find("SkinName")?.GetComponent<TextMeshProUGUI>();
                 Image imageComponent = newItem.transform.Find("SkinImage")?.GetComponent<Image>();
 
-                if (textComponent != null) textComponent.text = skinName;
+                if (nameText != null) nameText.text = skinName;
                 if (imageComponent != null && skin.image != null) imageComponent.sprite = skin.image;
 
+                // Configurar precio de venta
+                TextMeshProUGUI priceText = newItem.transform.Find("SellPrice")?.GetComponent<TextMeshProUGUI>();
+                if (priceText != null)
+                {
+                    int sellValue = Mathf.RoundToInt(skin.price * sellValueMultiplier);
+                    priceText.text = sellValue.ToString() + " 🪙";
+                }
+
+                // Configurar botón de venta
                 Button button = newItem.GetComponent<Button>();
                 if (button != null)
                 {
@@ -65,7 +80,16 @@ public class SkinSellPanel : MonoBehaviour
             return;
         }
 
-        Debug.Log($"🗑️ Vendiendo skin: {skinData.name}");
+        // Calcular el valor de venta
+        int sellValue = 100;
+
+        Debug.Log($"🗑️ Vendiendo skin: {skinData.name} por {sellValue} monedas");
+
+        // Añadir monedas al jugador
+        if (CurrencyManager.Instance != null)
+        {
+            CurrencyManager.Instance.AddCoins(sellValue);
+        }
 
         // Eliminar del inventario
         SkinPurchase.purchasedSkins.Remove(skinData);
@@ -104,19 +128,14 @@ public class SkinSellPanel : MonoBehaviour
                 buttonFound = true;
                 purchaseButton.isPurchased = false;
                 purchaseButton.purchaseButton.interactable = true;
+                purchaseButton.UpdatePriceDisplay(); // Actualizar el texto del precio
                 Debug.Log($"✅ Botón reactivado: {purchaseButton.skinName}");
-
-                // Forzar actualización de todos los botones
-                ShopManager.Instance?.RefreshAllButtons();
             }
         }
 
         if (!buttonFound)
         {
             Debug.LogWarning($"⚠️ No se encontró ningún botón con el nombre: {skinName}");
-
-            // Si no encontramos el botón, intentamos refrescar todos los botones de la tienda de todas formas
-            ShopManager.Instance?.RefreshAllButtons();
         }
     }
 

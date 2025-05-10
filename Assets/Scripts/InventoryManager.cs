@@ -25,8 +25,9 @@ public class InventoryManager : MonoBehaviour
 
         if (SkinPurchase.purchasedSkins.Count == 0)
         {
-            SkinPurchase.purchasedSkins.Add(new SkinPurchase.SkinData("cabeza blanca", whiteHeadSprite));
-            SkinPurchase.purchasedSkins.Add(new SkinPurchase.SkinData("cuerpo blanco", whiteBodySprite));
+            // Las skins iniciales son gratuitas (precio 0)
+            SkinPurchase.purchasedSkins.Add(new SkinPurchase.SkinData("cabeza blanca", whiteHeadSprite, 0));
+            SkinPurchase.purchasedSkins.Add(new SkinPurchase.SkinData("cuerpo blanco", whiteBodySprite, 0));
         }
     }
 
@@ -63,16 +64,30 @@ public class InventoryManager : MonoBehaviour
         {
             GameObject newButton = Instantiate(skinButtonPrefab, inventoryContent);
 
+            // Configurar imagen
             Transform imageTransform = newButton.transform.Find("SkinImage");
             if (imageTransform != null)
             {
                 imageTransform.GetComponent<Image>().sprite = skin.image;
             }
 
+            // Configurar nombre
             Transform textTransform = newButton.transform.Find("SkinName");
             if (textTransform != null)
             {
                 textTransform.GetComponent<TextMeshProUGUI>().text = skin.name;
+            }
+
+            // Configurar indicador de equipado
+            Transform equippedTransform = newButton.transform.Find("EquippedStatus");
+            if (equippedTransform != null && equippedTransform.GetComponent<TextMeshProUGUI>() != null)
+            {
+                bool isHeadEquipped = player.IsHeadSkinEquipped(skin.name);
+                bool isBodyEquipped = player.IsBodySkinEquipped(skin.name);
+                bool isEquipped = isHeadEquipped || isBodyEquipped;
+
+                equippedTransform.GetComponent<TextMeshProUGUI>().text = isEquipped ? "Equipado" : "";
+                equippedTransform.gameObject.SetActive(isEquipped);
             }
 
             Button buttonComponent = newButton.GetComponent<Button>();
@@ -148,18 +163,5 @@ public class InventoryManager : MonoBehaviour
 
         Debug.LogError($"❌ Skin no encontrada: {skinName}");
         return -1;
-    }
-
-    [System.Serializable]
-    public class SkinData
-    {
-        public string name;
-        public Sprite image;
-
-        public SkinData(string name, Sprite image)
-        {
-            this.name = name;
-            this.image = image;
-        }
     }
 }
