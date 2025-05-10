@@ -8,6 +8,7 @@ public class SkinPurchase : MonoBehaviour
     public bool isPurchased = false;
     public string skinName;
     public Sprite skinImage;
+
     public static List<SkinData> purchasedSkins = new List<SkinData>();
 
     void Start()
@@ -30,7 +31,6 @@ public class SkinPurchase : MonoBehaviour
         if (isBodySkin)
         {
             Debug.Log($"Es una skin de cuerpo: {skinName}");
-            Debug.Log($"Ejecutando IsBodySkinOwned({skinName})...");
             if (IsBodySkinOwned(skinName))
             {
                 purchaseButton.interactable = false;
@@ -43,104 +43,89 @@ public class SkinPurchase : MonoBehaviour
     {
         if (!isPurchased)
         {
-            // 🔥 Verifica si la skin ya está en el inventario antes de comprarla
             bool isHeadOwned = IsHeadSkinOwned(skinName);
             bool isBodyOwned = IsBodySkinOwned(skinName);
 
-            if (!isHeadOwned && !isBodyOwned)  
+            if (!isHeadOwned && !isBodyOwned)
             {
                 isPurchased = true;
                 purchasedSkins.Add(new SkinData(skinName, skinImage));
                 purchaseButton.interactable = false;
-                Debug.Log($"✅ Skin {skinName} comprada y agregada al inventario.");
+                Debug.Log($"Skin {skinName} comprada y agregada al inventario.");
 
                 PlayerRaycast player = FindObjectOfType<PlayerRaycast>();
                 if (player != null)
                 {
-                    int headSkinIndex = GetSkinIndex(skinName);
-                    int bodySkinIndex = GetBodySkinIndex(skinName);
+                    int skinIndex = GetSkinIndex(skinName);
+                    if (skinIndex >= 0)
+                    {
+                        if (skinName.ToLower().Contains("cabeza"))
+                        {
+                            Debug.Log($"Aplicando skin comprada a la cabeza: {skinName}");
+                            player.ChangeHeadSkin(skinIndex);
+                        }
+                        else if (skinName.ToLower().Contains("cuerpo"))
+                        {
+                            Debug.Log($"Aplicando skin comprada al cuerpo: {skinName}");
+                            player.ChangeBodySkin(skinIndex);
+                        }
+                    }
+                }
 
-                    if (headSkinIndex >= 0)
-                    {
-                        Debug.Log($"🔥 Aplicando skin comprada a la cabeza: {skinName}");
-                        player.ChangeHeadSkin(headSkinIndex);
-                    }
-                    else if (bodySkinIndex >= 0)
-                    {
-                        Debug.Log($"🔥 Aplicando skin comprada al cuerpo: {skinName}");
-                        player.ChangeBodySkin(bodySkinIndex);
-                    }
+                // Actualizar el inventario si está abierto
+                InventoryManager inventory = FindObjectOfType<InventoryManager>();
+                if (inventory != null && inventory.inventoryPanel.activeSelf)
+                {
+                    inventory.SelectSkin(skinName);
                 }
             }
             else
             {
-                Debug.Log($"🚫 Compra bloqueada: El jugador ya tiene {skinName}");
-                purchaseButton.interactable = false; // 🔥 Asegurar que el botón se deshabilite si ya tiene la skin
+                Debug.Log($"Compra bloqueada: El jugador ya tiene {skinName}");
+                purchaseButton.interactable = false;
             }
         }
     }
 
-    // 🔥 Método para verificar si la skin ya está en el inventario
     private bool IsHeadSkinOwned(string skinName)
     {
-        foreach (SkinData skin in purchasedSkins)
-        {
-            if (skin.name.ToLower().Contains("cabeza") && skin.name.ToLower().Trim() == skinName.ToLower().Trim())
-            {
-                Debug.Log($"🚫 El jugador ya tiene esta cabeza: {skinName}");
-                return true;
-            }
-        }
-        return false;
+        string normalizedName = skinName.ToLower().Trim();
+        return purchasedSkins.Exists(skin => skin.name.ToLower().Trim() == normalizedName && skin.name.ToLower().Contains("cabeza"));
     }
 
     private bool IsBodySkinOwned(string skinName)
     {
-        Debug.Log($"🔍 Buscando skin de cuerpo en el inventario: {skinName}");
-
-        foreach (SkinData skin in purchasedSkins)
-        {
-            Debug.Log($"🧐 Comparando con: {skin.name}");
-
-            if (skin.name.ToLower().Contains("cuerpo") && skin.name.ToLower().Trim() == skinName.ToLower().Trim())
-            {
-                Debug.Log($"🚫 El jugador ya tiene este cuerpo: {skinName}");
-                return true;
-            }
-        }
-
-        Debug.Log($"❌ No se encontró la skin de cuerpo en el inventario: {skinName}");
-        return false;
+        string normalizedName = skinName.ToLower().Trim();
+        return purchasedSkins.Exists(skin => skin.name.ToLower().Trim() == normalizedName && skin.name.ToLower().Contains("cuerpo"));
     }
 
     private int GetSkinIndex(string skinName)
     {
-        switch (skinName.ToLower())
+        Dictionary<string, int> skinMapping = new Dictionary<string, int>
         {
-            case "cabeza blanca": return 0;
-            case "cabeza amarilla": return 1;
-            case "cabeza negra": return 2;
-            default:
-               
-                return -1;
-        }
-    }
+            { "cabeza blanca", 0 }, { "cabeza amarilla", 1 }, { "cabeza negra", 2 },
+            { "cuerpo blanco", 0 }, { "cuerpo amarillo", 1 }, { "cuerpo negro", 2 },
+            { "azul", 3 }, { "rojo", 4 }, { "rosa", 5 }, { "verde", 6 }
+        };
 
-    private int GetBodySkinIndex(string skinName)
-    {
-        switch (skinName.ToLower())
+        string normalizedName = skinName.ToLower().Trim();
+
+        // Comprobar directamente el nombre normalizado
+        if (skinMapping.ContainsKey(normalizedName))
         {
-            case "cuerpo blanco": return 0;
-            case "cuerpo amarillo": return 1;
-            case "cuerpo negro": return 2;
-            case "cuerpo azul": return 3;
-            case "cuerpo rojo": return 4;
-            case "cuerpo rosa": return 5;
-            case "cuerpo verde": return 6;
-            default:
-               
-                return -1;
+            return skinMapping[normalizedName];
         }
+
+        // Si no se encuentra, verificar si es solo un color (sin prefijo "cuerpo" o "cabeza")
+        string[] colorNames = { "azul", "rojo", "rosa", "verde" };
+        if (System.Array.IndexOf(colorNames, normalizedName) >= 0)
+        {
+            // Para estos colores, el índice es su posición + 3
+            return System.Array.IndexOf(colorNames, normalizedName) + 3;
+        }
+
+        Debug.LogError($"Skin no encontrada: {skinName}");
+        return -1;
     }
 
     public class SkinData
@@ -148,7 +133,6 @@ public class SkinPurchase : MonoBehaviour
         public string name;
         public Sprite image;
 
-        // 🔥 Agregar un constructor que acepte 'name' y 'image'
         public SkinData(string name, Sprite image)
         {
             this.name = name;
@@ -156,4 +140,3 @@ public class SkinPurchase : MonoBehaviour
         }
     }
 }
-

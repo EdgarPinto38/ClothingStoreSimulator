@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerRaycast : MonoBehaviour
 {
@@ -6,10 +7,6 @@ public class PlayerRaycast : MonoBehaviour
     public SpriteRenderer bodyRenderer;
     public Animator headAnimator;
     public Animator bodyAnimator;
-
-    public string currentHeadColor = "White";  
-    public string currentBodyColor = "White";  
-
 
     private Vector2 lastDirection = Vector2.down;
     private bool isMoving = false;
@@ -30,14 +27,14 @@ public class PlayerRaycast : MonoBehaviour
             if (moveX > 0)
             {
                 lastDirection = Vector2.right;
-                headRenderer.flipX = false;  // 🔥 Asegura que la cabeza se voltee correctamente
+                headRenderer.flipX = false;
                 bodyRenderer.flipX = false;
                 SetWalkAnimation();
             }
             else if (moveX < 0)
             {
                 lastDirection = Vector2.left;
-                headRenderer.flipX = true;  // 🔥 Voltear la cabeza correctamente
+                headRenderer.flipX = true;
                 bodyRenderer.flipX = true;
                 SetWalkAnimation();
             }
@@ -58,6 +55,7 @@ public class PlayerRaycast : MonoBehaviour
             PlayIdleAnimation();
         }
     }
+
     public void SetWalkAnimation()
     {
         ResetTriggers();
@@ -108,99 +106,159 @@ public class PlayerRaycast : MonoBehaviour
 
     public void ResetTriggers()
     {
-        string[] colors = { "White", "Yellow", "Black", "Azul", "Rojo", "Rosa", "Verde" };
-        string[] states = { "WalkRight", "WalkUp", "WalkDown", "IdleRight", "IdleUp", "IdleDown" };
-
-        foreach (string color in colors)
+        foreach (SkinColor color in System.Enum.GetValues(typeof(SkinColor)))
         {
-            foreach (string state in states)
-            {
-                headAnimator.ResetTrigger($"{state}_{color}");
-                bodyAnimator.ResetTrigger($"{state}_{color}");
-            }
+            headAnimator.ResetTrigger($"WalkRight_{color}");
+            headAnimator.ResetTrigger($"WalkUp_{color}");
+            headAnimator.ResetTrigger($"WalkDown_{color}");
+            headAnimator.ResetTrigger($"IdleRight_{color}");
+            headAnimator.ResetTrigger($"IdleUp_{color}");
+            headAnimator.ResetTrigger($"IdleDown_{color}");
+
+            bodyAnimator.ResetTrigger($"WalkRight_{color}");
+            bodyAnimator.ResetTrigger($"WalkUp_{color}");
+            bodyAnimator.ResetTrigger($"WalkDown_{color}");
+            bodyAnimator.ResetTrigger($"IdleRight_{color}");
+            bodyAnimator.ResetTrigger($"IdleUp_{color}");
+            bodyAnimator.ResetTrigger($"IdleDown_{color}");
         }
 
-        Debug.Log("✅ Triggers reseteados correctamente.");
+        Debug.Log("Triggers reseteados correctamente.");
     }
 
     public void ChangeHeadSkin(int skinIndex)
     {
         if (skinIndex >= 0 && skinIndex < System.Enum.GetValues(typeof(SkinColor)).Length)
         {
-            currentHeadSkin = (SkinColor)skinIndex;
-            Debug.Log($"✅ Cabeza cambiada a: {currentHeadSkin}");
+            currentHeadSkin = (SkinColor)skinIndex; // 🔥 Actualizar la skin de cabeza equipada
             ResetTriggers();
             PlayIdleAnimation();
+
+            Debug.Log($"✔️ Cabeza equipada: {currentHeadSkin}");
         }
-        
     }
 
     public void ChangeBodySkin(int skinIndex)
     {
         if (skinIndex >= 0 && skinIndex < System.Enum.GetValues(typeof(SkinColor)).Length)
         {
-            Debug.Log($"➡️ Antes del cambio, la cabeza es: {currentHeadSkin}");
-
-            currentBodySkin = (SkinColor)skinIndex;
-            Debug.Log($"✅ Cuerpo cambiado a: {currentBodySkin}");
-
-            // 🔥 Reiniciar triggers ANTES de actualizar la animación
+            currentBodySkin = (SkinColor)skinIndex; // 🔥 Actualizar la skin de cuerpo equipada
             ResetTriggers();
-            Debug.Log("🔄 Triggers reseteados");
+            PlayIdleAnimation();
 
-            // 🔥 Asegurar que la animación corresponda a la última dirección del movimiento
-            if (isMoving)
-            {
-                SetWalkAnimation();
-                Debug.Log($"🚶 Aplicando animación de movimiento en dirección {lastDirection}");
-            }
-            else
-            {
-                PlayIdleAnimation();
-                Debug.Log("🎬 Aplicando animación Idle");
-            }
-
-            Debug.Log($"🔥 Después del cambio, la cabeza sigue siendo: {currentHeadSkin}");
-        }
-        else
-        {
-            Debug.LogError($"⚠️ Índice inválido para el cuerpo: {skinIndex}");
+            Debug.Log($"✔️ Cuerpo equipado: {currentBodySkin}");
         }
     }
+
     public Vector2 GetLastDirection()
     {
         return lastDirection;
     }
 
-    private string GetEquippedHeadColor()
-    {
-        return currentHeadColor; // 🔹 Retornar el color de la cabeza equipada
-    }
-
-    private string GetEquippedBodyColor()
-    {
-        return currentBodyColor; // 🔹 Retornar el color del cuerpo equipado
-    }
-
     public void ForceLookUp()
     {
-        lastDirection = Vector2.up; // 🔥 Establecer dirección hacia arriba
-        Debug.Log($"Dirección forzada hacia arriba: {lastDirection}");
-
-        // Obtener el color de cabeza y cuerpo equipados
-        string headColor = GetEquippedHeadColor();
-        string bodyColor = GetEquippedBodyColor();
-
-        Debug.Log($"Color de cabeza equipado: {headColor}");
-        Debug.Log($"Color de cuerpo equipado: {bodyColor}");
-
-        // Resetear triggers antes de aplicar el nuevo estado
+        lastDirection = Vector2.up;
         ResetTriggers();
+        headAnimator.SetTrigger($"IdleUp_{currentHeadSkin}");
+        bodyAnimator.SetTrigger($"IdleUp_{currentBodySkin}");
+        Debug.Log($"Estado IdleUp aplicado con cabeza {currentHeadSkin} y cuerpo {currentBodySkin}");
+    }
 
-        // Activar la animación IdleUp con el color actual
-        headAnimator.SetTrigger($"IdleUp_{headColor}");
-        bodyAnimator.SetTrigger($"IdleUp_{bodyColor}");
+    public bool IsHeadSkinEquipped(string skinName)
+    {
+        // Convertir el nombre de la skin al formato que coincide con el enum
+        string skinNameLower = skinName.ToLower().Trim();
 
-        Debug.Log($"Estado IdleUp aplicado con cabeza {headColor} y cuerpo {bodyColor}");
+        if (!skinNameLower.Contains("cabeza"))
+        {
+            return false;
+        }
+
+        // Extraer solo el color de la skin
+        string colorName;
+        if (skinNameLower.Contains("cabeza "))
+        {
+            colorName = skinNameLower.Replace("cabeza ", "");
+        }
+        else
+        {
+            colorName = skinNameLower; // Para colores como "azul", "rosa", etc.
+        }
+
+        // Mapeamos los nombres en español a los valores del enum
+        Dictionary<string, SkinColor> colorMapping = new Dictionary<string, SkinColor>
+        {
+            { "blanca", SkinColor.White },
+            { "amarilla", SkinColor.Yellow },
+            { "negra", SkinColor.Black },
+            { "azul", SkinColor.Azul },
+            { "rojo", SkinColor.Rojo },
+            { "rosa", SkinColor.Rosa },
+            { "verde", SkinColor.Verde }
+        };
+
+        // Verificar si el color existe en el mapping y comparar con la skin actual
+        if (colorMapping.TryGetValue(colorName, out SkinColor mappedColor))
+        {
+            bool isEquipped = currentHeadSkin == mappedColor;
+            Debug.Log($"🔍 Comparando cabeza equipada ({currentHeadSkin}) con {mappedColor} - Resultado: {isEquipped}");
+            return isEquipped;
+        }
+
+        Debug.Log($"⚠️ Color no encontrado en el mapping para cabeza: {colorName}");
+        return false;
+    }
+
+    public bool IsBodySkinEquipped(string skinName)
+    {
+        // Convertir el nombre de la skin al formato que coincide con el enum
+        string skinNameLower = skinName.ToLower().Trim();
+
+        // Si la skin no tiene "cuerpo" en el nombre y no es un color general, no es una skin de cuerpo
+        if (!skinNameLower.Contains("cuerpo") &&
+            !(skinNameLower == "azul" || skinNameLower == "rojo" ||
+              skinNameLower == "rosa" || skinNameLower == "verde"))
+        {
+            return false;
+        }
+
+        // Extraer solo el color de la skin
+        string colorName;
+        if (skinNameLower.Contains("cuerpo "))
+        {
+            colorName = skinNameLower.Replace("cuerpo ", "");
+        }
+        else
+        {
+            colorName = skinNameLower; // Para colores como "azul", "rosa", etc.
+        }
+
+        // Mapeamos los nombres en español a los valores del enum
+        Dictionary<string, SkinColor> colorMapping = new Dictionary<string, SkinColor>
+        {
+            { "blanco", SkinColor.White },
+            { "amarillo", SkinColor.Yellow },
+            { "negro", SkinColor.Black },
+            { "azul", SkinColor.Azul },
+            { "rojo", SkinColor.Rojo },
+            { "rosa", SkinColor.Rosa },
+            { "verde", SkinColor.Verde }
+        };
+
+        // Verificar si el color existe en el mapping y comparar con la skin actual
+        if (colorMapping.TryGetValue(colorName, out SkinColor mappedColor))
+        {
+            bool isEquipped = currentBodySkin == mappedColor;
+            Debug.Log($"🔍 Comparando cuerpo equipado ({currentBodySkin}) con {mappedColor} - Resultado: {isEquipped}");
+            return isEquipped;
+        }
+
+        Debug.Log($"⚠️ Color no encontrado en el mapping para cuerpo: {colorName}");
+        return false;
+    }
+
+    private string ConvertToSkinName(string type, string skinName)
+    {
+        return $"{type} {skinName}".ToLower().Trim();
     }
 }
