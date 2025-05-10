@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerRaycast : MonoBehaviour
 {
@@ -26,14 +26,14 @@ public class PlayerRaycast : MonoBehaviour
             if (moveX > 0)
             {
                 lastDirection = Vector2.right;
-                headRenderer.flipX = false;
+                headRenderer.flipX = false;  // 🔥 Asegura que la cabeza se voltee correctamente
                 bodyRenderer.flipX = false;
                 SetWalkAnimation();
             }
             else if (moveX < 0)
             {
                 lastDirection = Vector2.left;
-                headRenderer.flipX = true;
+                headRenderer.flipX = true;  // 🔥 Voltear la cabeza correctamente
                 bodyRenderer.flipX = true;
                 SetWalkAnimation();
             }
@@ -54,15 +54,14 @@ public class PlayerRaycast : MonoBehaviour
             PlayIdleAnimation();
         }
     }
-
-    void SetWalkAnimation()
+    public void SetWalkAnimation()
     {
         ResetTriggers();
         ActivateHeadTrigger("WalkRight", "WalkUp", "WalkDown");
         ActivateBodyTrigger("WalkRight", "WalkUp", "WalkDown");
     }
 
-    void PlayIdleAnimation()
+    public void PlayIdleAnimation()
     {
         ResetTriggers();
         ActivateHeadTrigger("IdleRight", "IdleUp", "IdleDown");
@@ -103,7 +102,7 @@ public class PlayerRaycast : MonoBehaviour
         }
     }
 
-    void ResetTriggers()
+    public void ResetTriggers()
     {
         string[] colors = { "White", "Yellow", "Black", "Azul", "Rojo", "Rosa", "Verde" };
         string[] states = { "WalkRight", "WalkUp", "WalkDown", "IdleRight", "IdleUp", "IdleDown" };
@@ -116,21 +115,56 @@ public class PlayerRaycast : MonoBehaviour
                 bodyAnimator.ResetTrigger($"{state}_{color}");
             }
         }
+
+        Debug.Log("✅ Triggers reseteados correctamente.");
     }
 
     public void ChangeHeadSkin(int skinIndex)
     {
-        currentHeadSkin = (SkinColor)skinIndex;
+        if (skinIndex >= 0 && skinIndex < System.Enum.GetValues(typeof(SkinColor)).Length)
+        {
+            currentHeadSkin = (SkinColor)skinIndex;
+            Debug.Log($"✅ Cabeza cambiada a: {currentHeadSkin}");
+            ResetTriggers();
+            PlayIdleAnimation();
+        }
+        
     }
 
     public void ChangeBodySkin(int skinIndex)
     {
-        currentBodySkin = (SkinColor)skinIndex;
-    }
+        if (skinIndex >= 0 && skinIndex < System.Enum.GetValues(typeof(SkinColor)).Length)
+        {
+            Debug.Log($"➡️ Antes del cambio, la cabeza es: {currentHeadSkin}");
 
+            currentBodySkin = (SkinColor)skinIndex;
+            Debug.Log($"✅ Cuerpo cambiado a: {currentBodySkin}");
+
+            // 🔥 Reiniciar triggers ANTES de actualizar la animación
+            ResetTriggers();
+            Debug.Log("🔄 Triggers reseteados");
+
+            // 🔥 Asegurar que la animación corresponda a la última dirección del movimiento
+            if (isMoving)
+            {
+                SetWalkAnimation();
+                Debug.Log($"🚶 Aplicando animación de movimiento en dirección {lastDirection}");
+            }
+            else
+            {
+                PlayIdleAnimation();
+                Debug.Log("🎬 Aplicando animación Idle");
+            }
+
+            Debug.Log($"🔥 Después del cambio, la cabeza sigue siendo: {currentHeadSkin}");
+        }
+        else
+        {
+            Debug.LogError($"⚠️ Índice inválido para el cuerpo: {skinIndex}");
+        }
+    }
     public Vector2 GetLastDirection()
     {
         return lastDirection;
     }
-
 }
