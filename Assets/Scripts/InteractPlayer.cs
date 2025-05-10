@@ -10,6 +10,7 @@ public class InteractPlayer : MonoBehaviour
 
     private GameObject detectedObject;
     private PlayerRaycast playerRaycast;
+    public SkinSellPanel skinSellPanel;
 
     void Start()
     {
@@ -50,6 +51,19 @@ public class InteractPlayer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             CloseStore();
+        }
+
+        if (isPlayerIdle && Input.GetKeyDown(KeyCode.E) && detectedObject != null && detectedObject.CompareTag("Sell"))
+        {
+            // Abrir el panel de venta
+            if (skinSellPanel != null)
+            {
+                skinSellPanel.OpenSellPanel(); // Llama al método del panel
+            }
+            else
+            {
+                Debug.LogError("El SellPanel no está asignado en el inspector.");
+            }
         }
     }
 

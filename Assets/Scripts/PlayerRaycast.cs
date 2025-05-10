@@ -122,19 +122,15 @@ public class PlayerRaycast : MonoBehaviour
             bodyAnimator.ResetTrigger($"IdleUp_{color}");
             bodyAnimator.ResetTrigger($"IdleDown_{color}");
         }
-
-        Debug.Log("Triggers reseteados correctamente.");
     }
 
     public void ChangeHeadSkin(int skinIndex)
     {
         if (skinIndex >= 0 && skinIndex < System.Enum.GetValues(typeof(SkinColor)).Length)
         {
-            currentHeadSkin = (SkinColor)skinIndex; // 🔥 Actualizar la skin de cabeza equipada
+            currentHeadSkin = (SkinColor)skinIndex;
             ResetTriggers();
             PlayIdleAnimation();
-
-            Debug.Log($"✔️ Cabeza equipada: {currentHeadSkin}");
         }
     }
 
@@ -142,11 +138,9 @@ public class PlayerRaycast : MonoBehaviour
     {
         if (skinIndex >= 0 && skinIndex < System.Enum.GetValues(typeof(SkinColor)).Length)
         {
-            currentBodySkin = (SkinColor)skinIndex; // 🔥 Actualizar la skin de cuerpo equipada
+            currentBodySkin = (SkinColor)skinIndex;
             ResetTriggers();
             PlayIdleAnimation();
-
-            Debug.Log($"✔️ Cuerpo equipado: {currentBodySkin}");
         }
     }
 
@@ -161,12 +155,10 @@ public class PlayerRaycast : MonoBehaviour
         ResetTriggers();
         headAnimator.SetTrigger($"IdleUp_{currentHeadSkin}");
         bodyAnimator.SetTrigger($"IdleUp_{currentBodySkin}");
-        Debug.Log($"Estado IdleUp aplicado con cabeza {currentHeadSkin} y cuerpo {currentBodySkin}");
     }
 
     public bool IsHeadSkinEquipped(string skinName)
     {
-        // Convertir el nombre de la skin al formato que coincide con el enum
         string skinNameLower = skinName.ToLower().Trim();
 
         if (!skinNameLower.Contains("cabeza"))
@@ -174,18 +166,16 @@ public class PlayerRaycast : MonoBehaviour
             return false;
         }
 
-        // Extraer solo el color de la skin
         string colorName;
         if (skinNameLower.Contains("cabeza "))
         {
-            colorName = skinNameLower.Replace("cabeza ", "");
+            colorName = skinNameLower.Replace("cabeza ", "").Trim();
         }
         else
         {
-            colorName = skinNameLower; // Para colores como "azul", "rosa", etc.
+            return false;
         }
 
-        // Mapeamos los nombres en español a los valores del enum
         Dictionary<string, SkinColor> colorMapping = new Dictionary<string, SkinColor>
         {
             { "blanca", SkinColor.White },
@@ -197,24 +187,18 @@ public class PlayerRaycast : MonoBehaviour
             { "verde", SkinColor.Verde }
         };
 
-        // Verificar si el color existe en el mapping y comparar con la skin actual
         if (colorMapping.TryGetValue(colorName, out SkinColor mappedColor))
         {
-            bool isEquipped = currentHeadSkin == mappedColor;
-            Debug.Log($"🔍 Comparando cabeza equipada ({currentHeadSkin}) con {mappedColor} - Resultado: {isEquipped}");
-            return isEquipped;
+            return currentHeadSkin == mappedColor;
         }
 
-        Debug.Log($"⚠️ Color no encontrado en el mapping para cabeza: {colorName}");
         return false;
     }
 
     public bool IsBodySkinEquipped(string skinName)
     {
-        // Convertir el nombre de la skin al formato que coincide con el enum
         string skinNameLower = skinName.ToLower().Trim();
 
-        // Si la skin no tiene "cuerpo" en el nombre y no es un color general, no es una skin de cuerpo
         if (!skinNameLower.Contains("cuerpo") &&
             !(skinNameLower == "azul" || skinNameLower == "rojo" ||
               skinNameLower == "rosa" || skinNameLower == "verde"))
@@ -222,18 +206,16 @@ public class PlayerRaycast : MonoBehaviour
             return false;
         }
 
-        // Extraer solo el color de la skin
         string colorName;
         if (skinNameLower.Contains("cuerpo "))
         {
-            colorName = skinNameLower.Replace("cuerpo ", "");
+            colorName = skinNameLower.Replace("cuerpo ", "").Trim();
         }
         else
         {
-            colorName = skinNameLower; // Para colores como "azul", "rosa", etc.
+            colorName = skinNameLower.Trim();
         }
 
-        // Mapeamos los nombres en español a los valores del enum
         Dictionary<string, SkinColor> colorMapping = new Dictionary<string, SkinColor>
         {
             { "blanco", SkinColor.White },
@@ -245,15 +227,11 @@ public class PlayerRaycast : MonoBehaviour
             { "verde", SkinColor.Verde }
         };
 
-        // Verificar si el color existe en el mapping y comparar con la skin actual
         if (colorMapping.TryGetValue(colorName, out SkinColor mappedColor))
         {
-            bool isEquipped = currentBodySkin == mappedColor;
-            Debug.Log($"🔍 Comparando cuerpo equipado ({currentBodySkin}) con {mappedColor} - Resultado: {isEquipped}");
-            return isEquipped;
+            return currentBodySkin == mappedColor;
         }
 
-        Debug.Log($"⚠️ Color no encontrado en el mapping para cuerpo: {colorName}");
         return false;
     }
 
