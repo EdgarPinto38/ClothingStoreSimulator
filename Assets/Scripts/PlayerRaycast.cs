@@ -7,6 +7,10 @@ public class PlayerRaycast : MonoBehaviour
     public Animator headAnimator;
     public Animator bodyAnimator;
 
+    public string currentHeadColor = "White";  
+    public string currentBodyColor = "White";  
+
+
     private Vector2 lastDirection = Vector2.down;
     private bool isMoving = false;
 
@@ -166,5 +170,37 @@ public class PlayerRaycast : MonoBehaviour
     public Vector2 GetLastDirection()
     {
         return lastDirection;
+    }
+
+    private string GetEquippedHeadColor()
+    {
+        return currentHeadColor; // 🔹 Retornar el color de la cabeza equipada
+    }
+
+    private string GetEquippedBodyColor()
+    {
+        return currentBodyColor; // 🔹 Retornar el color del cuerpo equipado
+    }
+
+    public void ForceLookUp()
+    {
+        lastDirection = Vector2.up; // 🔥 Establecer dirección hacia arriba
+        Debug.Log($"Dirección forzada hacia arriba: {lastDirection}");
+
+        // Obtener el color de cabeza y cuerpo equipados
+        string headColor = GetEquippedHeadColor();
+        string bodyColor = GetEquippedBodyColor();
+
+        Debug.Log($"Color de cabeza equipado: {headColor}");
+        Debug.Log($"Color de cuerpo equipado: {bodyColor}");
+
+        // Resetear triggers antes de aplicar el nuevo estado
+        ResetTriggers();
+
+        // Activar la animación IdleUp con el color actual
+        headAnimator.SetTrigger($"IdleUp_{headColor}");
+        bodyAnimator.SetTrigger($"IdleUp_{bodyColor}");
+
+        Debug.Log($"Estado IdleUp aplicado con cabeza {headColor} y cuerpo {bodyColor}");
     }
 }

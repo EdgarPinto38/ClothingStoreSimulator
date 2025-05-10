@@ -22,4 +22,9 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
     }
 
+    public bool IsPlayerIdle()
+    {
+        return movement == Vector2.zero; // Retorna verdadero si el jugador no se está moviendo
+    }
+
 }

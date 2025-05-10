@@ -20,12 +20,16 @@ public class InteractPlayer : MonoBehaviour
     {
         if (playerRaycast == null) return;
 
+        // Verificar si el jugador está quieto
+        PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
+        bool isPlayerIdle = playerMovement != null && playerMovement.IsPlayerIdle();
+
         Vector2 rayDirection = playerRaycast.GetLastDirection();
         RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDirection, rayDistance, interactableLayer);
 
         Debug.DrawRay(transform.position, rayDirection * rayDistance, Color.red);
 
-        if (hit.collider != null)
+        if (hit.collider != null && isPlayerIdle)
         {
             detectedObject = hit.collider.gameObject;
             objectNameText.text = detectedObject.name;
@@ -37,7 +41,8 @@ public class InteractPlayer : MonoBehaviour
             objectNameText.text = "";
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && detectedObject != null && detectedObject.CompareTag("Store"))
+        // Solo permitir interacción si el jugador está quieto
+        if (isPlayerIdle && Input.GetKeyDown(KeyCode.E) && detectedObject != null && detectedObject.CompareTag("Store"))
         {
             OpenStore();
         }

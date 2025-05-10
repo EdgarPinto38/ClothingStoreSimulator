@@ -5003,6 +5003,8 @@ MonoBehaviour:
   bodyRenderer: {fileID: 1783799127}
   headAnimator: {fileID: 1052696435}
   bodyAnimator: {fileID: 1783799128}
+  currentHeadColor: White
+  currentBodyColor: White
 --- !u!114 &308914046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5049,6 +5051,8 @@ MonoBehaviour:
   inventoryPanel: {fileID: 633188690}
   skinButtonPrefab: {fileID: 5331149772274468615, guid: 62351dc1c43e03b4a972efd9d01b6879, type: 3}
   inventoryContent: {fileID: 1539709315}
+  whiteHeadSprite: {fileID: -124285853, guid: 294e66d9fd10da147bc4e1191466b94f, type: 3}
+  whiteBodySprite: {fileID: 1953874658, guid: 294e66d9fd10da147bc4e1191466b94f, type: 3}
 --- !u!1 &371099632
 GameObject:
   m_ObjectHideFlags: 0
@@ -5212,6 +5216,30 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 308914048}
+        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
+        m_MethodName: CloseInventory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 308914045}
+        m_TargetAssemblyTypeName: PlayerRaycast, Assembly-CSharp
+        m_MethodName: ForceLookUp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7972,7 +8000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   purchaseButton: {fileID: 1526309379}
   isPurchased: 0
-  skinName: cuerpo blannco
+  skinName: cuerpo blanco
   skinImage: {fileID: 1953874658, guid: 294e66d9fd10da147bc4e1191466b94f, type: 3}
 --- !u!1 &1539709314
 GameObject:
