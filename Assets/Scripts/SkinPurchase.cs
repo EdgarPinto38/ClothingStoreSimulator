@@ -37,7 +37,7 @@ public class SkinPurchase : MonoBehaviour
             }
             else
             {
-                priceText.text = price.ToString() + " 🪙";
+                priceText.text = price.ToString() + " ";
             }
         }
     }
@@ -54,7 +54,7 @@ public class SkinPurchase : MonoBehaviour
                 // Verificar si tiene suficientes monedas
                 if (CurrencyManager.Instance != null && CurrencyManager.Instance.SpendCoins(price))
                 {
-                    Debug.Log($"💰 Comprando skin: {skinName} por {price} monedas");
+                    Debug.Log($"Comprando skin: {skinName} por {price} monedas");
                     isPurchased = true;
                     purchasedSkins.Add(new SkinData(skinName, skinImage, price));
                     purchaseButton.interactable = false;
@@ -91,7 +91,7 @@ public class SkinPurchase : MonoBehaviour
                 else
                 {
                     // Mostrar mensaje de error - no hay suficientes monedas
-                    Debug.Log($"❌ No tienes suficientes monedas para comprar {skinName}. Necesitas: {price}");
+                    Debug.Log($"No tienes suficientes monedas para comprar {skinName}. Necesitas: {price}");
                 }
             }
         }
@@ -138,7 +138,7 @@ public class SkinPurchase : MonoBehaviour
         }
 
         UpdatePriceDisplay();
-        Debug.Log($"🔁 Botón reactivado: {skinName}");
+        Debug.Log($"Botón reactivado: {skinName}");
     }
 
     public int GetSkinIndex(string skinName)
@@ -160,7 +160,7 @@ public class SkinPurchase : MonoBehaviour
             if (key == colors[i]) return i + 3;
         }
 
-        Debug.LogError($"❌ Skin no encontrada: {skinName}");
+        Debug.LogError($"Skin no encontrada: {skinName}");
         return -1;
     }
 

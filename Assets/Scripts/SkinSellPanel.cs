@@ -30,7 +30,7 @@ public class SkinSellPanel : MonoBehaviour
         PlayerRaycast player = FindObjectOfType<PlayerRaycast>();
         if (player == null)
         {
-            Debug.LogError("❌ No se encontró el PlayerRaycast");
+            Debug.LogError("No se encontró el PlayerRaycast");
             return;
         }
 
@@ -110,7 +110,7 @@ public class SkinSellPanel : MonoBehaviour
 
     private void ReactivateShopButton(string skinName)
     {
-        Debug.Log($"🔄 Intentando reactivar botón para: {skinName}");
+        Debug.Log($"Intentando reactivar botón para: {skinName}");
 
         // Obtener todos los botones de compra en la escena
         SkinPurchase[] allPurchaseButtons = FindObjectsOfType<SkinPurchase>(true); // El true busca incluso objetos inactivos
@@ -129,13 +129,13 @@ public class SkinSellPanel : MonoBehaviour
                 purchaseButton.isPurchased = false;
                 purchaseButton.purchaseButton.interactable = true;
                 purchaseButton.UpdatePriceDisplay(); // Actualizar el texto del precio
-                Debug.Log($"✅ Botón reactivado: {purchaseButton.skinName}");
+               
             }
         }
 
         if (!buttonFound)
         {
-            Debug.LogWarning($"⚠️ No se encontró ningún botón con el nombre: {skinName}");
+            Debug.LogWarning($"No se encontró ningún botón con el nombre: {skinName}");
         }
     }
 

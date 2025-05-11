@@ -46,6 +46,8 @@ public class InteractPlayer : MonoBehaviour
         if (isPlayerIdle && Input.GetKeyDown(KeyCode.E) && detectedObject != null && detectedObject.CompareTag("Store"))
         {
             OpenStore();
+            PlayerRaycast player = FindObjectOfType<PlayerRaycast>();
+            player.ForceLookUp();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -58,7 +60,9 @@ public class InteractPlayer : MonoBehaviour
             // Abrir el panel de venta
             if (skinSellPanel != null)
             {
-                skinSellPanel.OpenSellPanel(); // Llama al método del panel
+                skinSellPanel.OpenSellPanel();
+                PlayerRaycast player = FindObjectOfType<PlayerRaycast>();
+                player.ForceLookUp();
             }
             else
             {
