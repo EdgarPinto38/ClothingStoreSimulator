@@ -38,6 +38,9 @@ public class InventoryManager : MonoBehaviour
 
         if (isPlayerIdle && Input.GetKeyDown(KeyCode.I))
         {
+            
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             ToggleInventory();
             Time.timeScale = 0;
         }
@@ -106,6 +109,9 @@ public class InventoryManager : MonoBehaviour
 
     public void CloseInventory()
     {
+        
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
         inventoryPanel.SetActive(false);
     }

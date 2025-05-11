@@ -12,9 +12,17 @@ public class InteractPlayer : MonoBehaviour
     private PlayerRaycast playerRaycast;
     public SkinSellPanel skinSellPanel;
 
+    public GameObject gamePanel;
+    public GameObject pausePanel;
+
     void Start()
     {
         playerRaycast = FindObjectOfType<PlayerRaycast>();
+        // Ocultar el cursor
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+
     }
 
     void Update()
@@ -45,6 +53,7 @@ public class InteractPlayer : MonoBehaviour
         // Solo permitir interacción si el jugador está quieto
         if (isPlayerIdle && Input.GetKeyDown(KeyCode.E) && detectedObject != null && detectedObject.CompareTag("Store"))
         {
+           
             OpenStore();
             PlayerRaycast player = FindObjectOfType<PlayerRaycast>();
             player.ForceLookUp();
@@ -52,11 +61,20 @@ public class InteractPlayer : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            CloseStore();
+            // Mostrar el cursor
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            PlayerRaycast player = FindObjectOfType<PlayerRaycast>();
+            player.ForceLookUp();
+            Time.timeScale = 0;
+            pausePanel.SetActive(true);
+            gamePanel.SetActive(false);
         }
 
         if (isPlayerIdle && Input.GetKeyDown(KeyCode.E) && detectedObject != null && detectedObject.CompareTag("Sell"))
         {
+            
             // Abrir el panel de venta
             if (skinSellPanel != null)
             {
@@ -73,15 +91,21 @@ public class InteractPlayer : MonoBehaviour
 
     void OpenStore()
     {
+        // Mostrar el cursor
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         storePanel.SetActive(true);
         Time.timeScale = 0;
         Debug.Log("Tienda abierta: Movimiento bloqueado completamente.");
     }
 
-    void CloseStore()
+    public void NormalTime()
     {
-        storePanel.SetActive(false);
+        // Ocultar el cursor
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
-        Debug.Log("Tienda cerrada: Movimiento restaurado.");
     }
+
+    
 }

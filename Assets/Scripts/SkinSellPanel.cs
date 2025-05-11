@@ -15,6 +15,9 @@ public class SkinSellPanel : MonoBehaviour
 
     public void OpenSellPanel()
     {
+        // Ocultar el cursor
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         gameObject.SetActive(true);
         LoadSellableSkins();
     }
